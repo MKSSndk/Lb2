@@ -31,3 +31,53 @@ def read_from_file(file_path: str) -> str:
         raise ValueError("Файл не найден. Проверьте путь.")
     except IOError as e:
         raise ValueError(f"Ошибка чтения файла: {e}")
+
+def main():
+    while True:
+        print("\nВыберите опцию:")
+        print("1. Ввод числа вручную")
+        print("2. Проверка текста с веб-страницы")
+        print("3. Проверка текста из файла")
+        print("4. Запуск тестов")
+        print("5. Выход")
+
+        option = input("Введите номер опции: ").strip()
+
+        if option == "1":
+            user_input = input("Введите строку с римскими числами: ").strip()
+            if is_valid_roman(user_input):
+                print(f"'{user_input}' является корректным римским числом.")
+            else:
+                print(f"'{user_input}' не является корректным римским числом.")
+        elif option == "2":
+            url = input("Введите URL веб-страницы: ").strip()
+            try:
+                text = read_from_url(url)
+                numerals = find_roman_numerals(text)
+                if numerals:
+                    print(f"Найдено римских чисел: {len(numerals)}")
+                    print(numerals)
+                else:
+                    print("Римских чисел не найдено.")
+            except ValueError as e:
+                print(e)
+        elif option == "3":
+            file_path = input("Введите путь к файлу: ").strip()
+            try:
+                text = read_from_file(file_path)
+                numerals = find_roman_numerals(text)
+                if numerals:
+                    print(f"Найдено римских чисел: {len(numerals)}")
+                    print(numerals)
+                else:
+                    print("Римских чисел не найдено.")
+            except ValueError as e:
+                print(e)
+        elif option == "4":
+            print("Запуск тестов...")
+            unittest.TextTestRunner(verbosity=2).run(unittest.TestLoader().loadTestsFromTestCase(TestRomanNumerals))
+        elif option == "5":
+            print("Выход из программы.")
+            break
+        else:
+            print("Некорректный выбор опции. Попробуйте снова.")
