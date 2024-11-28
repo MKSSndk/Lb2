@@ -81,3 +81,28 @@ def main():
             break
         else:
             print("Некорректный выбор опции. Попробуйте снова.")
+
+# Unit-тесты
+class TestRomanNumerals(unittest.TestCase):
+    def test_valid_roman_numerals(self):
+        self.assertTrue(is_valid_roman("X"))
+        self.assertTrue(is_valid_roman("XL"))
+        self.assertTrue(is_valid_roman("MMM"))
+        self.assertTrue(is_valid_roman("IV"))
+        self.assertTrue(is_valid_roman("CMXCIX"))
+
+    def test_invalid_roman_numerals(self):
+        self.assertFalse(is_valid_roman("IIII"))
+        self.assertFalse(is_valid_roman("MMMM"))
+        self.assertFalse(is_valid_roman("VV"))
+        self.assertFalse(is_valid_roman("XCXC"))
+        self.assertFalse(is_valid_roman("123"))
+
+    def test_find_roman_numerals(self):
+        text = "Римские числа: I, II, III, IV, IX, XX, XL, XC, CD, CM, и MMM."
+        expected = ["I", "II", "III", "IV", "IX", "XX", "XL", "XC", "CD", "CM", "MMM"]
+        self.assertEqual(find_roman_numerals(text), expected)
+
+
+if __name__ == "__main__":
+    main()
